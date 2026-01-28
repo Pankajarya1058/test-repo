@@ -19,6 +19,6 @@ jobs:
       uses: jamesives/github-pages-deploy-action@v4 
       with:
         branch: dev  # The branch to which the static files will be deployed
-        folder: ./upload/  # Folder to deploy (in this case, the root directory with your HTML file)
+        folder: ./upload  # Folder to deploy (in this case, the root directory with your HTML file)
         token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically generates this token for secure authentication
 
