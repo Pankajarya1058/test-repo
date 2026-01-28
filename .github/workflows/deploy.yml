@@ -14,6 +14,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: List contents of 'upload' folder
+      run: ls -R ./upload
+
     # Step 2: Set up GitHub Pages deployment using a deploy action
     - name: Deploy to GitHub Pages
       uses: jamesives/github-pages-deploy-action@v4 
