@@ -1,0 +1,27 @@
+name: Deploy Static HTML to GitHub Pages
+
+on:
+  push:
+    branches:
+      - dev  # Trigger deployment on every push to the 'dev' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: List contents of 'upload' folder
+      run: ls -R ./upload
+
+    # Step 2: Set up GitHub Pages deployment using a deploy action
+    - name: Deploy to GitHub Pages
+      uses: jamesives/github-pages-deploy-action@v4 
+      with:
+        branch: gh-pages  # The branch to which the static files will be deployed
+        folder: ./upload  # Folder to deploy (in this case, the root directory with your HTML file)
+        token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically generates this token for secure authentication
+

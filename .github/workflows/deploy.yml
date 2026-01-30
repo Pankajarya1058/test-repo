@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64]
 
     steps:
     # Step 1: Checkout the code from the repository
@@ -17,11 +17,19 @@ jobs:
     - name: List contents of 'upload' folder
       run: ls -R ./upload
 
+    - name: Deploy this to nginx
+      run: |
+        sudo cp -r ./upload/* /var/www/html/test/
+        sudo chmod -R 755 /var/www/html/test/*
+        sudo chown -R nginx:nginx /var/www/html/test/*
+        sudo systemctl restart nginx
+
+
     # Step 2: Set up GitHub Pages deployment using a deploy action
-    - name: Deploy to GitHub Pages
-      uses: jamesives/github-pages-deploy-action@v4 
-      with:
-        branch: gh-pages  # The branch to which the static files will be deployed
-        folder: ./upload  # Folder to deploy (in this case, the root directory with your HTML file)
-        token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically generates this token for secure authentication
+    #- name: Deploy to GitHub Pages
+    #  uses: jamesives/github-pages-deploy-action@v4 
+    #  with:
+    #    branch: gh-pages  # The branch to which the static files will be deployed
+    #    folder: ./upload  # Folder to deploy (in this case, the root directory with your HTML file)
+    #    token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically generates this token for secure authentication
 
